@@ -1,6 +1,198 @@
-你好
-学习
-kanshub
-人生主线？
-美女
-噪音
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老大哥的控制台</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* 核心暗色调调色盘 */
+        :root {
+            --bg-main: #0d1117;       /* 极深蓝黑背景（类似GitHub暗黑模式） */
+            --bg-card: #161b22;       /* 卡片深灰色 */
+            --border-color: #30363d;  /* 微弱的半透明边框 */
+            --text-main: #c9d1d9;     /* 浅灰文字，不晃眼 */
+            --text-muted: #8b949e;    /* 黯淡文字，用于简介 */
+            --accent-glow: #58a6ff;   /* 极客蓝（悬停高亮） */
+            --accent-green: #238636;  /* 荧光绿（分类点缀） */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-main); 
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 左侧固定侧边栏 */
+        .sidebar { 
+            width: 240px; 
+            height: 100vh; 
+            background: #090d13; 
+            position: fixed; 
+            padding: 30px 20px;
+            border-right: 1px solid var(--border-color);
+        }
+        .sidebar .brand { 
+            font-size: 18px; 
+            font-weight: 600; 
+            margin-bottom: 40px; 
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar .brand i { color: var(--accent-glow); }
+        .sidebar a { 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 14px; 
+            border-radius: 6px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease; 
+        }
+        .sidebar a:hover { 
+            background: var(--bg-card); 
+            color: #ffffff; 
+        }
+
+        /* 右侧主内容滚动区 */
+        .main-content { 
+            margin-left: 240px; 
+            flex: 1; 
+            padding: 40px 50px; 
+        }
+        
+        /* 分类标题 */
+        .category-section { margin-bottom: 40px; }
+        .category-title { 
+            font-size: 16px; 
+            font-weight: 600;
+            color: #ffffff; 
+            margin-bottom: 20px; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .category-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background: var(--accent-glow);
+            border-radius: 2px;
+        }
+        
+        /* 极致简洁卡片网格 */
+        .card-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 16px; 
+        }
+        .card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-color);
+            border-radius: 6px; 
+            padding: 16px; 
+            text-decoration: none; 
+            color: inherit; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 悬停微光与边缘上浮效果 */
+        .card:hover { 
+            border-color: var(--accent-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(88, 166, 255, 0.1);
+        }
+        .card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        /* 自动将网站图标变成半透明，融入暗色调，悬停时恢复亮色 */
+        .card img { 
+            width: 24px; 
+            height: 24px; 
+            border-radius: 4px; 
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .card:hover img { opacity: 1; }
+        .card h3 { font-size: 14px; font-weight: 500; color: #f0f6fc; }
+        .card p { 
+            font-size: 12px; 
+            color: var(--text-muted); 
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand">
+            <i class="fa fa-terminal"></i>
+            <span>WORKSPACE</span>
+        </div>
+        <a href="#proxies"><i class="fa fa-globe"></i> 网络代理</a>
+        <a href="#servers"><i class="fa fa-server"></i> 服务器 / FRP</a>
+        <a href="#dev"><i class="fa fa-code"></i> 开发与工具</a>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="proxies" class="category-section">
+            <div class="category-title">网络代理与调优</div>
+            <div class="card-grid">
+                
+                <a href="https://dash.cloudflare.com" target="_blank" class="card">
+                    <div class="card-top">
+                        <img src="https://www.cloudflare.com/favicon.ico" alt="CF">
+                        <h3>Cloudflare</h3>
+                    </div>
+                    <p>DNS解析、Workers 边缘计算及 CDN 域名代理配置面板。</p>
+                </a>
+
+                <a href="https://github.com" target="_blank" class="card">
+                    <div class="card-top">
+                        <img src="https://github.githubassets.com/favicons/favicon.png" alt="GitHub">
+                        <h3>GitHub</h3>
+                    </div>
+                    <p>代码托管与静态网站 Pages 部署的主阵地。</p>
+                </a>
+
+            </div>
+        </div>
+
+        <div id="servers" class="category-section">
+            <div class="category-title">内网穿透 & 监控</div>
+            <div class="card-grid">
+                
+                <a href="http://127.0.0.1:7500" target="_blank" class="card">
+                    <div class="card-top">
+                        <i class="fa fa-desktop" style="font-size: 20px; color: var(--text-muted);"></i>
+                        <h3 style="margin-left: 4px;">FRP Dashboard</h3>
+                    </div>
+                    <p>本地 FRP 内网穿透服务的高效流量与连接监控面板。</p>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
